@@ -1,7 +1,7 @@
 //go:build gofuzzbeta
 // +build gofuzzbeta
 
-package network_test
+package network
 
 import (
 	"context"
@@ -16,7 +16,6 @@ import (
 	"github.com/tharsis/ethermint/app"
 	"github.com/tharsis/ethermint/crypto/ethsecp256k1"
 	"github.com/tharsis/ethermint/tests"
-	"github.com/tharsis/ethermint/testutil/network"
 	"github.com/tharsis/ethermint/x/evm"
 	evmtypes "github.com/tharsis/ethermint/x/evm/types"
 )
@@ -64,7 +63,7 @@ func FuzzNetworkRPC(f *testing.F) {
 		ethjson := new(ethtypes.Transaction)
 		binerr := ethjson.UnmarshalBinary(msg)
 		if binerr == nil {
-			testnetwork := network.New(t, network.DefaultConfig())
+			testnetwork := New(t, DefaultConfig())
 			defer testnetwork.Cleanup()
 			_, err := testnetwork.WaitForHeight(1)
 			if err != nil {
