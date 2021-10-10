@@ -1,7 +1,7 @@
 //go:build gofuzzbeta
 // +build gofuzzbeta
 
-package networkfuzz_test
+package network_test
 
 import (
 	"context"
