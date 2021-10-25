@@ -29,6 +29,7 @@ import (
 	"github.com/tendermint/tendermint/crypto/tmhash"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmversion "github.com/tendermint/tendermint/proto/tendermint/version"
+	feemarkettypes "github.com/tharsis/ethermint/x/feemarket/types"
 
 	"github.com/tendermint/tendermint/version"
 )
@@ -54,7 +55,7 @@ func FuzzEVMHandlerImpl(amount1 int64, gasLimit1 uint64, gasPrice1 int64, input1
 	}
 	consAddress := sdk.ConsAddress(priv.PubKey().Address())
 
-	eapp := app.Setup(checkTx)
+	eapp := app.Setup(checkTx, &feemarkettypes.GenesisState{})
 	coins := sdk.NewCoins(sdk.NewCoin(types.DefaultEVMDenom, sdk.NewInt(100000000000000)))
 	genesisState := app.ModuleBasics.DefaultGenesis(eapp.AppCodec())
 	b32address := sdk.MustBech32ifyAddressBytes(sdk.GetConfig().GetBech32AccountAddrPrefix(), priv.PubKey().Address().Bytes())
